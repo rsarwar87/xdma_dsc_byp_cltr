@@ -70,7 +70,8 @@ architecture Behavioral of bypass_controller is
         signal byp_busy         : std_logic := '0';
         signal byp_awk          : std_logic := '0';
         signal byp_cyclic       : std_logic := '0';
-
+        
+        signal byp_addr_cnt     : std_logic_vector (63 downto 0) := (others => '0');
 begin
 
     process (CLK, RST) 
@@ -84,6 +85,7 @@ begin
             dsc_byp_dst_addr <= (others => '0');
             dsc_byp_length <= (others => '0');
             byp_count <= (others => '0');
+            byp_addr_cnt <= (others => '0');
         elsif (rising_edge(CLK)) then
             if (smachine = spin) then
                 if (dsc_byp_ready = '1') then
@@ -91,8 +93,9 @@ begin
                         cnt := 4;
                         dsc_byp_ctl <= byp_ctl;
                         dsc_byp_src_addr <= byp_src_addr;
-                        dsc_byp_dst_addr <= byp_dst_addr;
+                        dsc_byp_dst_addr <= std_logic_vector(unsigned(byp_dst_addr) + unsigned(byp_addr_cnt));
                         dsc_byp_length <= byp_length;
+                        byp_addr_cnt <= std_logic_vector(unsigned(byp_addr_cnt) + unsigned(byp_length));
                         dsc_byp_load <= '1';
                         byp_count <= std_logic_vector(unsigned(byp_count) + 1);
                     else 
@@ -104,6 +107,7 @@ begin
                     dsc_byp_src_addr <= (others => '0');
                     dsc_byp_dst_addr <= (others => '0');
                     dsc_byp_length <= (others => '0');
+                    byp_addr_cnt <= (others => '0');
                     dsc_byp_load <= '0';
                     cnt := 4;
                 end if;
