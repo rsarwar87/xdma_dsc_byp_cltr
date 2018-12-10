@@ -16,9 +16,9 @@ The IP provisions:
 
 1. cyclic transfer
 
-2. max buffer size of 250 MB
+2. max payload size of 250 MB
 
-3. a 32-bit repeat counter to allocate the number of times the transfer is to be repeated. Hence the Maximum transfer size per request is 250*4294967296 MB. The IP breaks down the request into smaller packets accodring to the Max buffer/packet limits
+3. a 32-bit repeat counter to allocate the number of times the transfer is to be repeated. Hence the Maximum transfer size per request is 250*4294967296 MB. The IP breaks down the request into smaller packets accodring to the Max payload/packet limits
 
 It has 8 words to control the IP:
 
