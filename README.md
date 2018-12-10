@@ -10,6 +10,16 @@ This IP controls the c2h/h2c_byp ports. The IP is controlled through a slave por
 may be connected to PS/Microblace or controlled from the host throught the PCIe to AXI-Lite 
 Master Interface. 
 
+It works with both streaming and memory mapped mode. For C2H transfer, allocated a continuous memory for DMA using the mem="XX" boot parameter at known physical address, and set that address as the starting destination address on the FPGA. For H2C, you probably still need to ensure a single memory block, and set that address as the starting source address.
+
+The IP provisions:
+
+1. cyclic transfer
+
+2. max buffer size of 250 MB
+
+3. a 32-bit repeat counter to allocate the number of times the transfer is to be repeated. Hence the Maximum transfer size per request is 250*4294967296 MB. The IP breaks down the request into smaller packets accodring to the Max buffer/packet limits
+
 It has 8 words to control the IP:
 
     signal slv_reg0	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
@@ -32,5 +42,7 @@ It has 8 words to control the IP:
 
 
 TODO:
+
     - create test bench
+    
     - test on device
