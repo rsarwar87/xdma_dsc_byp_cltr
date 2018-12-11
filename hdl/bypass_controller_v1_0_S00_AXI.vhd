@@ -102,6 +102,8 @@ architecture arch_imp of bypass_controller_v1_0_S00_AXI is
             bypass_start        : in std_logic := '0';
             bypass_reset        : in std_logic := '0';
             bypass_cyclic       : in std_logic := '0';
+            bypass_src_mm       : in std_logic := '0';
+            bypass_dst_mm       : in std_logic := '0';
             bypass_repeat       : in std_logic_vector (31 downto 0) := (others => '0');
             bypass_count        : out std_logic_vector (30 downto 0) := (others => '0');
             bypass_busy         : out std_logic := '0';
@@ -154,18 +156,18 @@ architecture arch_imp of bypass_controller_v1_0_S00_AXI is
 	signal byte_index	: integer;
 	signal aw_en	: std_logic;
 
-        signal bypass_ctl          : std_logic_vector (15 downto 0) := (others => '0');
-        signal bypass_dst_addr     : std_logic_vector (63 downto 0) := (others => '0');
-        signal bypass_src_addr     : std_logic_vector (63 downto 0) := (others => '0');
-        signal bypass_length       : std_logic_vector (27 downto 0) := (others => '0');
-        signal bypass_start        : std_logic := '0';
-        signal bypass_reset        : std_logic := '0';
-        signal bypass_cyclic       : std_logic := '0';
-        signal bypass_repeat       : std_logic_vector (31 downto 0) := (others => '0');
-        signal bypass_count        : std_logic_vector (30 downto 0) := (others => '0');
-        signal bypass_busy         : std_logic := '0';
-        signal bypass_awk          : std_logic := '0';
-     
+    signal bypass_ctl          : std_logic_vector (15 downto 0) := (others => '0');
+    signal bypass_dst_addr     : std_logic_vector (63 downto 0) := (others => '0');
+    signal bypass_src_addr     : std_logic_vector (63 downto 0) := (others => '0');
+    signal bypass_length       : std_logic_vector (27 downto 0) := (others => '0');
+    signal bypass_start        : std_logic := '0';
+    signal bypass_reset        : std_logic := '0';
+    signal bypass_cyclic       : std_logic := '0';
+    signal bypass_repeat       : std_logic_vector (31 downto 0) := (others => '0');
+    signal bypass_count        : std_logic_vector (30 downto 0) := (others => '0');
+    signal bypass_busy         : std_logic := '0';
+    signal bypass_awk          : std_logic := '0';
+    signal bypass_src_mm, bypass_dst_mm : std_logic := '0';
 begin
 	-- I/O Connections assignments
         bypass_ctl <= slv_reg0(15 downto 0);
@@ -173,6 +175,8 @@ begin
         bypass_src_addr <= slv_reg3 & slv_reg4;
         bypass_length <= slv_reg5(27 downto 0);
         bypass_reset <= slv_reg7(31);
+        bypass_dst_mm <= slv_reg7(3);
+        bypass_src_mm <= slv_reg7(2);
         bypass_cyclic <= slv_reg7(1);
         bypass_start <= slv_reg7(0);
         bypass_repeat <= slv_reg6;
@@ -507,6 +511,8 @@ begin
         bypass_count      => bypass_count, 
         bypass_busy       => bypass_busy, 
         bypass_awk        => bypass_awk,
+        bypass_src_mm     => bypass_src_mm,
+        bypass_dst_mm     => bypass_dst_mm,
       
 
         dsc_byp_ctl       => dsc_byp_ctl,

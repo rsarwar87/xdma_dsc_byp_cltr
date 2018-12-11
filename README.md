@@ -36,6 +36,8 @@ It has 8 words to control the IP:
     bypass_src_addr <= slv_reg3 & slv_reg4; -- source address
     bypass_length <= slv_reg5(27 downto 0); -- length of frame
     bypass_reset <= slv_reg7(31); -- stop transfer
+    bypass_dst_mm <= slv_reg7(3); -- is the destination mm or st? '1' for mm
+    bypass_src_mm <= slv_reg7(2); -- is the source mm or st? '1' for mm
     bypass_cyclic <= slv_reg7(1); -- enable cyclic transfer
     bypass_start <= slv_reg7(0); -- start transfer
     bypass_repeat <= slv_reg6; -- repeat

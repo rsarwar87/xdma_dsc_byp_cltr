@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tbench_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="tbench" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="45640000fs"></ZoomStartTime>
+      <ZoomEndTime time="59800001fs"></ZoomEndTime>
+      <Cursor1Time time="50720000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="150"></NameColumnWidth>
+      <ValueColumnWidth column_width="93"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="21" />
+   <wvobject type="array" fp_name="/tbench/bypass_ctl">
+      <obj_property name="ElementShortName">bypass_ctl[15:0]</obj_property>
+      <obj_property name="ObjectShortName">bypass_ctl[15:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tbench/bypass_dst_addr">
+      <obj_property name="ElementShortName">bypass_dst_addr[63:0]</obj_property>
+      <obj_property name="ObjectShortName">bypass_dst_addr[63:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tbench/bypass_src_addr">
+      <obj_property name="ElementShortName">bypass_src_addr[63:0]</obj_property>
+      <obj_property name="ObjectShortName">bypass_src_addr[63:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tbench/bypass_length">
+      <obj_property name="ElementShortName">bypass_length[27:0]</obj_property>
+      <obj_property name="ObjectShortName">bypass_length[27:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tbench/bypass_start">
+      <obj_property name="ElementShortName">bypass_start</obj_property>
+      <obj_property name="ObjectShortName">bypass_start</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tbench/bypass_reset">
+      <obj_property name="ElementShortName">bypass_reset</obj_property>
+      <obj_property name="ObjectShortName">bypass_reset</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tbench/bypass_cyclic">
+      <obj_property name="ElementShortName">bypass_cyclic</obj_property>
+      <obj_property name="ObjectShortName">bypass_cyclic</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tbench/bypass_repeat">
+      <obj_property name="ElementShortName">bypass_repeat[31:0]</obj_property>
+      <obj_property name="ObjectShortName">bypass_repeat[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tbench/bypass_count">
+      <obj_property name="ElementShortName">bypass_count[30:0]</obj_property>
+      <obj_property name="ObjectShortName">bypass_count[30:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FF0000</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tbench/bypass_busy">
+      <obj_property name="ElementShortName">bypass_busy</obj_property>
+      <obj_property name="ObjectShortName">bypass_busy</obj_property>
+      <obj_property name="CustomSignalColor">#FF0000</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tbench/bypass_awk">
+      <obj_property name="ElementShortName">bypass_awk</obj_property>
+      <obj_property name="ObjectShortName">bypass_awk</obj_property>
+      <obj_property name="CustomSignalColor">#FF0000</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tbench/dsc_byp_ctl">
+      <obj_property name="ElementShortName">dsc_byp_ctl[15:0]</obj_property>
+      <obj_property name="ObjectShortName">dsc_byp_ctl[15:0]</obj_property>
+      <obj_property name="CustomSignalColor">#E0FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tbench/dsc_byp_dst_addr">
+      <obj_property name="ElementShortName">dsc_byp_dst_addr[63:0]</obj_property>
+      <obj_property name="ObjectShortName">dsc_byp_dst_addr[63:0]</obj_property>
+      <obj_property name="CustomSignalColor">#E0FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tbench/dsc_byp_src_addr">
+      <obj_property name="ElementShortName">dsc_byp_src_addr[63:0]</obj_property>
+      <obj_property name="ObjectShortName">dsc_byp_src_addr[63:0]</obj_property>
+      <obj_property name="CustomSignalColor">#E0FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tbench/dsc_byp_length">
+      <obj_property name="ElementShortName">dsc_byp_length[27:0]</obj_property>
+      <obj_property name="ObjectShortName">dsc_byp_length[27:0]</obj_property>
+      <obj_property name="CustomSignalColor">#E0FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tbench/dsc_byp_ready">
+      <obj_property name="ElementShortName">dsc_byp_ready</obj_property>
+      <obj_property name="ObjectShortName">dsc_byp_ready</obj_property>
+      <obj_property name="CustomSignalColor">#E0FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tbench/dsc_byp_load">
+      <obj_property name="ElementShortName">dsc_byp_load</obj_property>
+      <obj_property name="ObjectShortName">dsc_byp_load</obj_property>
+      <obj_property name="CustomSignalColor">#E0FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tbench/RST">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+      <obj_property name="CustomSignalColor">#808000</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tbench/CLK">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+      <obj_property name="CustomSignalColor">#808000</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tbench/byps_ctlr/bmachine">
+      <obj_property name="ElementShortName">bmachine</obj_property>
+      <obj_property name="ObjectShortName">bmachine</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tbench/byps_ctlr/smachine">
+      <obj_property name="ElementShortName">smachine</obj_property>
+      <obj_property name="ObjectShortName">smachine</obj_property>
+   </wvobject>
+</wave_config>
