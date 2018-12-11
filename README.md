@@ -42,8 +42,17 @@ It has 8 words to control the IP:
     bypass_start <= slv_reg7(0); -- start transfer
     bypass_repeat <= slv_reg6; -- repeat
 
+## Reference
+ 
+How to reserve memory block on linux machine: 
 
-TODO:
+ -- append GRUB_CMDLINE_LINUX="mem=7000m" to /etc/default/grub
+ -- exec sudo update-grub
+
+How to access reserved memory:
+https://elinux.org/Memory_Management#Reserving_.28and_accessing.29_the_top_of_memory_on_startup
+
+## TODO:
 
     - test on device
 
