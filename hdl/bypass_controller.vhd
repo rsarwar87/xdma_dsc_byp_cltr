@@ -66,7 +66,7 @@ architecture Behavioral of bypass_controller is
         signal byp_src_addr     : std_logic_vector (63 downto 0) := (others => '0');
         signal byp_length       : std_logic_vector (27 downto 0) := (others => '0');
         signal byp_repeat       : std_logic_vector (31 downto 0) := (others => '0');
-        signal byp_count        : std_logic_vector (30 downto 0) := (others => '0');
+        signal byp_count        : std_logic_vector (31 downto 0) := (others => '0');
         signal byp_busy         : std_logic := '0';
         signal byp_awk          : std_logic := '0';
         signal byp_cyclic       : std_logic := '0';
@@ -98,9 +98,13 @@ begin
                         byp_addr_cnt <= std_logic_vector(unsigned(byp_addr_cnt) + unsigned(byp_length));
                         dsc_byp_load <= '1';
                         byp_count <= std_logic_vector(unsigned(byp_count) + 1);
+                        byp_addr_cnt <= (others => '0');
                     else 
                         dsc_byp_load <= '0';
                         cnt := cnt - 1;
+                        if (byp_repeat = byp_count) then 
+                            byp_count <= (others => '0');
+                        end if;
                     end if;
                 else
                     dsc_byp_ctl <= (others => '0');
@@ -109,6 +113,7 @@ begin
                     dsc_byp_length <= (others => '0');
                     byp_addr_cnt <= (others => '0');
                     dsc_byp_load <= '0';
+                    byp_count <= (others => '0');
                     cnt := 4;
                 end if;
             else
