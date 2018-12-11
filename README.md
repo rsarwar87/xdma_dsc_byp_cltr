@@ -44,9 +44,6 @@ It has 8 words to control the IP:
 
 
 TODO:
-
-    - create test bench
-    
     - test on device
 
     - driver to control IP over PCIe to AXI-lite master interface
