@@ -5,7 +5,7 @@
 #include <string.h>
 #include <sys/mman.h>
 
-#define RESERVED_MEMORY_OFFSET 0x1B5800000           /* Offset is 7000mb */
+#define RESERVED_MEMORY_OFFSET 0x36B000000 //0x1B5800000           /* Offset is 7000mb */
 int main() 
 {
     int fd;

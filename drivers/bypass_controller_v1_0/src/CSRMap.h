@@ -1,6 +1,12 @@
 #ifndef CSR_MAP_H
 #define CSR_MAP_H
 
+#include <errno.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/mman.h>
 #include <stdint.h>
 #include <byteswap.h>
 /* ltoh: little to host */
@@ -57,47 +63,47 @@ class tcCSRMap
         
         void WriteBuffer (char * buffer)
         {
-            sprintf(mpRegMapMM, "%s", buffer);
+            sprintf((char *)mpRegMapMM, "%s", buffer);
         }
 
         void ReadBuffer (char * buffer, unsigned int size)
         {
-            snprintf(buffer, 13, "%s", mpRegMapMM);
+            snprintf(buffer, 13, "%s", (char *)mpRegMapMM);
         }
 
 	unsigned int ReadCtrlRegByte(int offset, int offset_byte)
 	{
-		volatile unsigned int8_t* preg = (volatile unsigned int8_t*)((unsigned int)mpRegMapMM);
+		volatile uint8_t* preg = (volatile uint8_t*)(mpRegMapMM);
 		return preg[offset*4 + offset_byte];
 	}
 
 	unsigned int ReadCtrlRegShort(int offset, int offset_half)
 	{
-		volatile unsigned int16_t* preg = (volatile unsigned int16_t*)((unsigned int)mpRegMapMM);
+		volatile uint16_t* preg = (volatile uint16_t*)(mpRegMapMM);
 		return ltohs(preg[offset*2+offset_half]);
 	}
 
 	unsigned int ReadCtrlRegWord(int offset = 0)
 	{
-		volatile unsigned int* preg = (volatile unsigned int*)((unsigned int)mpRegMapMM);
+		volatile uint32_t* preg = (volatile uint32_t*)(mpRegMapMM);
 		return ltohl(preg[offset]);
 	}
 
 	void WriteCtrlRegWord(int offset, unsigned int value)
 	{
-		volatile unsigned int* preg = (volatile unsigned int*)((unsigned int)mpRegMapMM);
+		volatile unsigned int* preg = (volatile unsigned int*)(mpRegMapMM);
 		preg[offset] = htoll(value);
 	}
 
         void WriteCtrlRegShort(int offset, int offset_half, uint16_t value)
 	{
-		volatile uint16_t* preg = (volatile uint16_t*)((uint32_t)mpRegMapMM);
+		volatile uint16_t* preg = (volatile uint16_t*)(mpRegMapMM);
 		preg[offset*2 + offset_half] = htols(value);
 	}
  
         void WriteCtrlRegByte(int offset, int offset_byte, uint8_t value)
 	{
-		volatile uint8_t* preg = (volatile uint8_t*)((uint32_t)mpRegMapMM);
+		volatile uint8_t* preg = (volatile uint8_t*)(mpRegMapMM);
 		preg[offset*4+offset_byte] = value;
 	}
  

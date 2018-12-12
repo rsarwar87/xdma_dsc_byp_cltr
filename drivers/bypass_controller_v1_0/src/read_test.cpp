@@ -4,8 +4,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/mman.h>
-
-#define RESERVED_MEMORY_OFFSET  0x1B5800000      /* Offset is 7000M */
+#include "DSC_controller.h"
+#define RESERVED_MEMORY_OFFSET  0x36B000000 
+			      //0x1B5800000      /* Offset is 7000M */
 
 int main() {
     int fd;
