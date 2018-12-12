@@ -47,6 +47,7 @@ It has 8 words to control the IP:
 How to reserve memory block on linux machine: 
 
  -- append GRUB_CMDLINE_LINUX="mem=7000m" to /etc/default/grub
+ 
  -- exec sudo update-grub
 
 How to access reserved memory:
@@ -56,4 +57,5 @@ https://elinux.org/Memory_Management#Reserving_.28and_accessing.29_the_top_of_me
 
     - test on device
 
-    - driver to control IP over PCIe to AXI-lite master interface
+## Driver
+Driver to control IP over PCIe to AXI-lite master interface is provided in drivers/bypass_controller_v1_0/src.
