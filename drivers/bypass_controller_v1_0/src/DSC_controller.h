@@ -28,12 +28,7 @@ class DSCcontroller
             AssignStatus(isSrcMM, isDstMM, isCyclic);
 		
             m_offset = offset;
-	    if (m_offset != 0)
 		csrMap = new tcCSRMap ("/dev/xdma0_user", 1*1024*1024, m_offset);
-	    else
-	    {
-		exit(-11);
-	    }
         
         }
         

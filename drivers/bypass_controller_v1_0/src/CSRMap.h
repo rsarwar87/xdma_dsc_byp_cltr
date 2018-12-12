@@ -33,6 +33,7 @@ class tcCSRMap
             mpRegMapMM = NULL;
             sz = size;
 	    /* map in the raw image buffer area */
+	    printf("Opening device %s", dev);
 	    if ((fd = open(dev, O_RDWR | O_SYNC)) < 0)
 	    {       
                 printf("Failed to creating mapping.\n");
@@ -48,7 +49,7 @@ class tcCSRMap
 		{
                     printf("Failed to creating mapping.\n");
                     printf("ERRNO: %s\n", strerror(errno));
-		    return;
+		    exit(-1);
 		}
 		mpRegMapMM = lpmem;
 	    }
