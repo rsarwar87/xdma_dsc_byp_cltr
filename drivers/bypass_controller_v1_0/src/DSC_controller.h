@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/mman.h>
+#include <time.h>
 
 #include "CSRMap.h"
 #include "DSC_controller_reg.h"
@@ -40,7 +41,7 @@ class DSCcontroller
 		delete csrMap;
 	} 
 
-	void SyncBits()
+	void SyncBits(bool print)
 	{
 	    if (!csrMap) exit(-11);
 		
@@ -56,14 +57,24 @@ class DSCcontroller
             // length/repeat
             m_dsc_map.m_lengthreg.mnWord = csrMap->ReadCtrlRegWord(BYPASS_CONTROLLER_LENG_REG_OFFSET);    
             m_dsc_map.m_repeatreg = csrMap->ReadCtrlRegWord(BYPASS_CONTROLLER_REPT_REG_OFFSET);    
+
+            if (print)
+            {
+                printf("[%s] Control bit 0x%x\n", GetTime(), m_dsc_map.m_controlreg.mnWord);
+                printf("[%s] Source addr bit 0x%x%x\n", GetTime(), m_dsc_map.m_srcaddrhighreg, m_dsc_map.m_srcaddrlowreg);
+                printf("[%s] Destination addr bit 0x%x%x\n", GetTime(), m_dsc_map.m_destaddrhighreg, m_dsc_map.m_destaddrlowreg);
+                printf("[%s] length bit %x\n", GetTime(), m_dsc_map.m_lengthreg.mnWord);
+                printf("[%s] repeat bit %x\n", GetTime(), m_dsc_map.m_repeatreg);
+            }
             
 	}
 
-	unsigned int GetStatusBits()
+	unsigned int GetStatusBits(bool print)
 	{
 	    if (!csrMap) exit(-11);
-            
-            return (csrMap->ReadCtrlRegWord(BYPASS_CONTROLLER_STAT_REG_OFFSET));    
+            uint32_t ret = (csrMap->ReadCtrlRegWord(BYPASS_CONTROLLER_STAT_REG_OFFSET));    
+            if (print) printf("[%s] status %x\n", GetTime(), m_dsc_map.m_repeatreg);
+            return ret;
 	}
 
 	void IssueCommand()
@@ -132,4 +143,18 @@ class DSCcontroller
 
         tcCSRMap *csrMap;
 	unsigned int m_offset;
+
+        char* GetTime()
+        {
+            time_t rawtime;
+            struct tm* timeinfo;
+
+            time(&rawtime);
+            timeinfo = localtime(&rawtime);
+
+            static char _retval[20];
+            strftime(_retval, sizeof(_retval), "%Y-%m-%d %H:%M:%S", timeinfo);
+
+            return _retval;
+        }
 };

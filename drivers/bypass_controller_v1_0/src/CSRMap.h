@@ -27,7 +27,7 @@
 class tcCSRMap
 {
     public:
-	tcCSRMap(const char *dev, unsigned int size, unsigned int RegsAddr)
+	tcCSRMap(const char *dev, unsigned int size, uint64_t RegsAddr)
         {
 	    int fd;
             mpRegMapMM = NULL;
