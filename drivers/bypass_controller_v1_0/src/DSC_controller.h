@@ -29,7 +29,7 @@ class DSCcontroller
             AssignStatus(isSrcMM, isDstMM, isCyclic);
 		
             m_offset = offset;
-		csrMap = new tcCSRMap ("/dev/xdma0_user", 1*1024*1024, m_offset);
+		csrMap = new tcCSRMap ("/dev/xdma0_user", 1*1024*1024, 0/*m_offset*/);
         
         }
         
@@ -41,7 +41,7 @@ class DSCcontroller
 		delete csrMap;
 	} 
 
-	void SyncBits(bool print)
+	inline void SyncBits(bool print)
 	{
 	    if (!csrMap) exit(-11);
 		
@@ -49,14 +49,14 @@ class DSCcontroller
             m_dsc_map.m_controlreg.mnWord = csrMap->ReadCtrlRegWord(BYPASS_CONTROLLER_CTL_REG_OFFSET);    
             
             // address bits
-            m_dsc_map.m_srcaddrhighreg = csrMap->ReadCtrlRegWord(BYPASS_CONTROLLER_SRC_HIGH_OFFSET);    
-            m_dsc_map.m_srcaddrlowreg = csrMap->ReadCtrlRegWord(BYPASS_CONTROLLER_SRC_LOW_OFFSET);    
-            m_dsc_map.m_destaddrhighreg = csrMap->ReadCtrlRegWord(BYPASS_CONTROLLER_DST_HIGH_OFFSET);    
-            m_dsc_map.m_destaddrlowreg = csrMap->ReadCtrlRegWord(BYPASS_CONTROLLER_DST_LOW_OFFSET);    
+            m_dsc_map.m_srcaddrhighreg = csrMap->ReadCtrlRegWord(BYPASS_CONTROLLER_SRC_HIGH_OFFSET + m_offset);    
+            m_dsc_map.m_srcaddrlowreg = csrMap->ReadCtrlRegWord(BYPASS_CONTROLLER_SRC_LOW_OFFSET + m_offset);    
+            m_dsc_map.m_destaddrhighreg = csrMap->ReadCtrlRegWord(BYPASS_CONTROLLER_DST_HIGH_OFFSET + m_offset);    
+            m_dsc_map.m_destaddrlowreg = csrMap->ReadCtrlRegWord(BYPASS_CONTROLLER_DST_LOW_OFFSET + m_offset);    
             
             // length/repeat
-            m_dsc_map.m_lengthreg.mnWord = csrMap->ReadCtrlRegWord(BYPASS_CONTROLLER_LENG_REG_OFFSET);    
-            m_dsc_map.m_repeatreg = csrMap->ReadCtrlRegWord(BYPASS_CONTROLLER_REPT_REG_OFFSET);    
+            m_dsc_map.m_lengthreg.mnWord = csrMap->ReadCtrlRegWord(BYPASS_CONTROLLER_LENG_REG_OFFSET + m_offset);    
+            m_dsc_map.m_repeatreg = csrMap->ReadCtrlRegWord(BYPASS_CONTROLLER_REPT_REG_OFFSET + m_offset);    
 
             if (print)
             {
@@ -69,51 +69,51 @@ class DSCcontroller
             
 	}
 
-	unsigned int GetStatusBits(bool print)
+	inline uint32_t GetStatusBits(bool print)
 	{
 	    if (!csrMap) exit(-11);
-            uint32_t ret = (csrMap->ReadCtrlRegWord(BYPASS_CONTROLLER_STAT_REG_OFFSET));    
+            uint32_t ret = (csrMap->ReadCtrlRegWord(BYPASS_CONTROLLER_STAT_REG_OFFSET + m_offset));    
             if (print) printf("[%s] status %x\n", GetTime(), m_dsc_map.m_repeatreg);
             return ret;
 	}
 
-	void IssueCommand()
+	inline void IssueCommand()
 	{
 	    if (!csrMap) exit(-11);
 
             // control bit
-            csrMap->WriteCtrlRegWord(BYPASS_CONTROLLER_CTL_REG_OFFSET, m_dsc_map.m_controlreg.mnWord);    
+            csrMap->WriteCtrlRegWord(BYPASS_CONTROLLER_CTL_REG_OFFSET + m_offset, m_dsc_map.m_controlreg.mnWord);    
             
             // address bits
-            csrMap->WriteCtrlRegWord(BYPASS_CONTROLLER_SRC_HIGH_OFFSET, m_dsc_map.m_srcaddrhighreg);    
-            csrMap->WriteCtrlRegWord(BYPASS_CONTROLLER_SRC_LOW_OFFSET, m_dsc_map.m_srcaddrlowreg);    
-            csrMap->WriteCtrlRegWord(BYPASS_CONTROLLER_DST_HIGH_OFFSET, m_dsc_map.m_destaddrhighreg);    
-            csrMap->WriteCtrlRegWord(BYPASS_CONTROLLER_DST_LOW_OFFSET, m_dsc_map.m_destaddrlowreg);    
+            csrMap->WriteCtrlRegWord(BYPASS_CONTROLLER_SRC_HIGH_OFFSET + m_offset, m_dsc_map.m_srcaddrhighreg);    
+            csrMap->WriteCtrlRegWord(BYPASS_CONTROLLER_SRC_LOW_OFFSET + m_offset, m_dsc_map.m_srcaddrlowreg);    
+            csrMap->WriteCtrlRegWord(BYPASS_CONTROLLER_DST_HIGH_OFFSET + m_offset, m_dsc_map.m_destaddrhighreg);    
+            csrMap->WriteCtrlRegWord(BYPASS_CONTROLLER_DST_LOW_OFFSET + m_offset, m_dsc_map.m_destaddrlowreg);    
             
             // length/repeat
-            csrMap->WriteCtrlRegWord(BYPASS_CONTROLLER_LENG_REG_OFFSET, m_dsc_map.m_lengthreg.mnWord);    
-            csrMap->WriteCtrlRegWord(BYPASS_CONTROLLER_REPT_REG_OFFSET, m_dsc_map.m_repeatreg);    
+            csrMap->WriteCtrlRegWord(BYPASS_CONTROLLER_LENG_REG_OFFSET + m_offset, m_dsc_map.m_lengthreg.mnWord);    
+            csrMap->WriteCtrlRegWord(BYPASS_CONTROLLER_REPT_REG_OFFSET + m_offset, m_dsc_map.m_repeatreg);    
             
             // control bit
-            csrMap->WriteCtrlRegWord(BYPASS_CONTROLLER_STAT_REG_OFFSET, m_dsc_map.m_statusreg.mnWord);    
+            csrMap->WriteCtrlRegWord(BYPASS_CONTROLLER_STAT_REG_OFFSET + m_offset, m_dsc_map.m_statusreg.mnWord);    
             
 	}
 
-	void HaltIssue()
+	inline void HaltIssue()
 	{
 	    if (!csrMap) exit(-11);
 
 	    m_dsc_map.m_statusreg.msBits.start = 0;
 	    m_dsc_map.m_statusreg.msBits.stop = 1;
 		
-            csrMap->WriteCtrlRegWord(BYPASS_CONTROLLER_STAT_REG_OFFSET, m_dsc_map.m_statusreg.mnWord);    
+            csrMap->WriteCtrlRegWord(BYPASS_CONTROLLER_STAT_REG_OFFSET + m_offset, m_dsc_map.m_statusreg.mnWord);    
 
 	    m_dsc_map.m_statusreg.msBits.start = 1;
 	    m_dsc_map.m_statusreg.msBits.stop = 0;
 		
 	}	
 	
-	void AssignAddress(uint64_t addr, bool isSrc = true)
+	inline void AssignAddress(uint64_t addr, bool isSrc = true)
 	{
 	    if (isSrc)
 	    {
@@ -127,7 +127,7 @@ class DSCcontroller
 	    }
 	}
 
-        void AssignStatus(bool isSrcMM, bool isDstMM, bool isCyclic)
+        inline void AssignStatus(bool isSrcMM, bool isDstMM, bool isCyclic)
         {
 	    m_dsc_map.m_statusreg.msBits.start = 1;
 	    m_dsc_map.m_statusreg.msBits.stop = 0;
@@ -144,7 +144,7 @@ class DSCcontroller
         tcCSRMap *csrMap;
 	unsigned int m_offset;
 
-        char* GetTime()
+        inline char* GetTime()
         {
             time_t rawtime;
             struct tm* timeinfo;

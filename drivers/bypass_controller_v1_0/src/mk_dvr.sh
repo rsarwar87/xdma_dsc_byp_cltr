@@ -1,4 +1,3 @@
 #!/bin/bash
 
-g++ -c driver.cpp  -Wall -fPIC -o dsc_driver.so
-
+g++ driver_test.cpp -Wall -o driver_test

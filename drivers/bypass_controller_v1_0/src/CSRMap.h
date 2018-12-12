@@ -33,7 +33,7 @@ class tcCSRMap
             mpRegMapMM = NULL;
             sz = size;
 	    /* map in the raw image buffer area */
-	    printf("Opening device %s", dev);
+	    printf("Opening device %s at 0x%lx\n", dev, RegsAddr);
 	    if ((fd = open(dev, O_RDWR | O_SYNC)) < 0)
 	    {       
                 printf("Failed to creating mapping.\n");
@@ -62,47 +62,47 @@ class tcCSRMap
 		munmap(mpRegMapMM, sz);
         }
         
-        void WriteBuffer (char * buffer)
+        inline void WriteBuffer (char * buffer)
         {
             sprintf((char *)mpRegMapMM, "%s", buffer);
         }
 
-        void ReadBuffer (char * buffer, unsigned int size)
+        inline void ReadBuffer (char * buffer, unsigned int size)
         {
             snprintf(buffer, 13, "%s", (char *)mpRegMapMM);
         }
 
-	unsigned int ReadCtrlRegByte(int offset, int offset_byte)
+	inline uint32_t ReadCtrlRegByte(int offset, int offset_byte)
 	{
 		volatile uint8_t* preg = (volatile uint8_t*)(mpRegMapMM);
 		return preg[offset*4 + offset_byte];
 	}
 
-	unsigned int ReadCtrlRegShort(int offset, int offset_half)
+	inline uint32_t ReadCtrlRegShort(int offset, int offset_half)
 	{
 		volatile uint16_t* preg = (volatile uint16_t*)(mpRegMapMM);
 		return ltohs(preg[offset*2+offset_half]);
 	}
 
-	unsigned int ReadCtrlRegWord(int offset = 0)
+	inline uint32_t ReadCtrlRegWord(int offset = 0)
 	{
 		volatile uint32_t* preg = (volatile uint32_t*)(mpRegMapMM);
 		return ltohl(preg[offset]);
 	}
 
-	void WriteCtrlRegWord(int offset, unsigned int value)
+	inline void WriteCtrlRegWord(int offset, unsigned int value)
 	{
 		volatile unsigned int* preg = (volatile unsigned int*)(mpRegMapMM);
 		preg[offset] = htoll(value);
 	}
 
-        void WriteCtrlRegShort(int offset, int offset_half, uint16_t value)
+        inline void WriteCtrlRegShort(int offset, int offset_half, uint16_t value)
 	{
 		volatile uint16_t* preg = (volatile uint16_t*)(mpRegMapMM);
 		preg[offset*2 + offset_half] = htols(value);
 	}
  
-        void WriteCtrlRegByte(int offset, int offset_byte, uint8_t value)
+        inline void WriteCtrlRegByte(int offset, int offset_byte, uint8_t value)
 	{
 		volatile uint8_t* preg = (volatile uint8_t*)(mpRegMapMM);
 		preg[offset*4+offset_byte] = value;

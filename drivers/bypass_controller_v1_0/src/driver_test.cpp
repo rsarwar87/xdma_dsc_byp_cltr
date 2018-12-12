@@ -35,8 +35,8 @@ void timespec_sub(struct timespec *t1, struct timespec *t2)
 
 #define RESERVED_MEM_OFFSET 0x36b000000
 #define BRAM_OFFSET 0x0
-#define H2C_DSC_CTRL 0x30000
-#define C2H_DSC_CTRL 0x40000
+#define H2C_DSC_CTRL 0x3000
+#define C2H_DSC_CTRL 0x4000
 
 
 
@@ -67,7 +67,7 @@ int main ()
     // setup data that is to be sent out.
     tcCSRMap* mMap = new tcCSRMap ("/dev/mem", 1*1024*1024*1024, RESERVED_MEM_OFFSET);
     for (i = 0; i < 0x2000*2; i++)
-      mMap->WriteCtrlRegWord(i, i);
+    	mMap->WriteCtrlRegWord(i, i);
 
     // initialize controllers
     DSCcontroller *ptr_h2c = new DSCcontroller (H2C_DSC_CTRL, false, true, false, 
@@ -76,8 +76,8 @@ int main ()
             0x0, RESERVED_MEM_OFFSET + 0x100000, 0x2000, 0x2 );
     
     // issue trigger
-    ptr_c2h->IssueCommand();
-    ptr_h2c->IssueCommand();
+//    ptr_c2h->IssueCommand();
+//    ptr_h2c->IssueCommand();
     
     // check write back
     for (i = 0x200; i < 0x300; i++)
