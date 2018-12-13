@@ -358,11 +358,12 @@ begin
 	            slv_reg5 <= slv_reg5;
 	            slv_reg6 <= slv_reg6;
 	            slv_reg7 <= slv_reg7;
-                    if (bypass_awk = '1') then
-                        slv_reg7(0) <= '0';
-                    end if;
+                    
 	        end case;
 	      end if;
+	      if (bypass_awk = '1') then
+              slv_reg7(0) <= '0';
+          end if;
 	    end if;
 	  end if;                   
 	end process; 
