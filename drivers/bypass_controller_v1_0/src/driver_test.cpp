@@ -82,5 +82,8 @@ int main ()
     // check write back
     for (i = 0x200; i < 0x300; i++)
         printf("%d\n", mMap->ReadCtrlRegWord(i + 0x100000));//rm[i]);
-
+	
+    delete ptr_h2c;
+    delete ptr_c2h;
+    delete mMap;
 }
