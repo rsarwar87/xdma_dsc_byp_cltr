@@ -51,7 +51,7 @@ https://elinux.org/Memory_Management#Reserving_.28and_accessing.29_the_top_of_me
 
 ## TODO:
 
-    - fix test script
+    - add cpp driver
 
 ## Driver
 1. Python driver to control IP over PCIe to AXI-lite master interface is provided in drivers/bypass_controller_v1_0/python.
