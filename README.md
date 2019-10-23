@@ -31,7 +31,7 @@ It has 8 words to control the IP:
 | Source_address_low       | 0x10   | 31 downto 0 | LSB of the 64-bit address in the source; if it is a stream, this register is ignored      |
 | Length                   | 0x14   | 31 downto 0 | Length of each transaction                                                                |
 | N_Repeat                 | 0x18   | 31 downto 0 | Number of times the transaction is to be repeated. Must be one or more.                   |
-| Control Bit              | 0x1c   | 31          | Stop/Reset bypass IP, the last transaction issued will be completed by the xdma           |
+| Control Bit              | 0x1c   | 31          | Stop/Reset bypass IP, the last transaction issued will be completed by the xdma (Not self clearing)           |
 | Control Bit              | 0x1c   | 30 downto 4 | Reserved                                                                                  |
 | Control Bit              | 0x1c   | 3           | Set to indicate that the destination is memory mapped, clear if destination is streaming  |
 | Control Bit              | 0x1c   | 2           | Set to indicate that the source is memory mapped, clear if source is streaming            |
