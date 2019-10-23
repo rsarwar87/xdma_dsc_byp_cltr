@@ -22,31 +22,27 @@ The IP provisions:
 
 It has 8 words to control the IP:
 
-    signal slv_reg0	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-    signal slv_reg1	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-    signal slv_reg2	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-    signal slv_reg3	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-    signal slv_reg4	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-    signal slv_reg5	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-    signal slv_reg6	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-    signal slv_reg7	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-
-    bypass_ctl <= slv_reg0(15 downto 0); -- table 2-4 PG195
-    bypass_dst_addr <= slv_reg1 & slv_reg2; -- destination address
-    bypass_src_addr <= slv_reg3 & slv_reg4; -- source address
-    bypass_length <= slv_reg5(27 downto 0); -- length of frame
-    bypass_reset <= slv_reg7(31); -- stop transfer
-    bypass_dst_mm <= slv_reg7(3); -- is the destination mm or st? '1' for mm
-    bypass_src_mm <= slv_reg7(2); -- is the source mm or st? '1' for mm
-    bypass_cyclic <= slv_reg7(1); -- enable cyclic transfer
-    bypass_start <= slv_reg7(0); -- start transfer
-    bypass_repeat <= slv_reg6; -- repeat
+| Name                     | Offset | Bit         | Description                                                                               |
+|--------------------------|--------|-------------|-------------------------------------------------------------------------------------------|
+| XDMA Control Bit         | 0x00   | 31 downto 0 | Refer to Table 33/34 in PG195.                                                            |
+| Destination_address_high | 0x04   | 31 downto 0 | MSB of the 64-bit address in the destination; if it is a stream, this register is ignored |
+| Destination_address_high | 0x08   | 31 downto 0 | LSB of the 64-bit address in the destination; if it is a stream, this register is ignored |
+| Source_address_high      | 0x0c   | 31 downto 0 | MSB of the 64-bit address in the source; if it is a stream, this register is ignored      |
+| Source_address_low       | 0x10   | 31 downto 0 | LSB of the 64-bit address in the source; if it is a stream, this register is ignored      |
+| Length                   | 0x14   | 31 downto 0 | Length of each transaction                                                                |
+| N_Repeat                 | 0x18   | 31 downto 0 | Number of times the transaction is to be repeated. Must be one or more.                   |
+| Control Bit              | 0x1c   | 31          | Stop/Reset bypass IP, the last transaction issued will be completed by the xdma           |
+| Control Bit              | 0x1c   | 30 downto 4 | Reserved                                                                                  |
+| Control Bit              | 0x1c   | 3           | Set to indicate that the destination is memory mapped, clear if destination is streaming  |
+| Control Bit              | 0x1c   | 2           | Set to indicate that the source is memory mapped, clear if source is streaming            |
+| Control Bit              | 0x1c   | 1           | Set to enable cyclic operation, i.e. transactions will loop infinitely                    |
+| Control Bit              | 0x1c   | 0           | Start issuing commands to the XDMA. it is self clearing                                   |
 
 ## Reference
  
 How to reserve memory block on linux machine: 
 
- -- append GRUB_CMDLINE_LINUX="mem=7000m" to /etc/default/grub
+ -- append GRUB_CMDLINE_LINUX="mem=7000m nopat" to /etc/default/grub
  
  -- exec sudo update-grub
 
@@ -58,4 +54,8 @@ https://elinux.org/Memory_Management#Reserving_.28and_accessing.29_the_top_of_me
     - fix test script
 
 ## Driver
-Driver to control IP over PCIe to AXI-lite master interface is provided in drivers/bypass_controller_v1_0/src.
+1. Python driver to control IP over PCIe to AXI-lite master interface is provided in drivers/bypass_controller_v1_0/python.
+
+2. Cpp-14 driver to control IP over PCIe to AXI-lite master interface is provided in drivers/bypass_controller_v1_0/python.
+
+3. C driver to control IP over PCIe to AXI-lite master interface is provided in drivers/bypass_controller_v1_0/python.
